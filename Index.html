@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Profile Card</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --success: #4cc9f0;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .profile-card {
+      max-width: 420px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: none;
+    }
+    
+    .cover-img {
+      height: 160px;
+      object-fit: cover;
+      filter: brightness(0.9);
+    }
+    
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border: 4px solid white;
+      object-fit: cover;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-top: -50px;
+    }
+    
+    .status-badge {
+      background-color: rgba(76, 201, 240, 0.2);
+      color: var(--success);
+      font-size: 0.8rem;
+    }
+    
+    .stat-value {
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+    
+    .custom-tabs {
+      border-bottom: none;
+      background-color: transparent;
+      margin: 0.5rem 0 1rem;
+    }
+    
+    .custom-tabs .nav-link {
+      border: none;
+      color: var(--gray);
+      font-weight: 500;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.75rem;
+      margin: 0 0.25rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    
+    .custom-tabs .nav-link:hover {
+      color: var(--primary);
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .custom-tabs .nav-link.active {
+      color: var(--primary);
+      background-color: rgba(67, 97, 238, 0.1);
+      position: relative;
+      font-weight: 600;
+    }
+    
+    .custom-tabs .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .tab-content-container {
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.5rem;
+      min-height: 120px;
+    }
+    
+    .experience-item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 0.75rem 0;
+      margin: 0;
+    }
+    
+    .experience-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    
+    .company-logo {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      border-radius: 6px;
+      padding: 4px;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-right: 0.75rem;
+    }
+    
+    .experience-text {
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.25rem 0;
+    }
+    
+    .skill-badge {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.65rem;
+      background-color: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+      border-radius: 50px;
+      font-weight: 500;
+    }
+    
+    .review-item {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .review-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    
+    .review-avatar {
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 0.75rem;
+    }
+    
+    .review-content {
+      flex: 1;
+    }
+    
+    .review-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    
+    .review-stars {
+      color: #ffc107;
+      font-size: 0.7rem;
+      margin-right: 0.5rem;
+    }
+    
+    .review-date {
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+    
+    .review-text {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      margin-bottom: 0;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border: none;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+      padding: 0.6rem;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+    }
+    
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .section-title i {
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body class="d-flex justify-content-center align-items-center p-3">
+  <div class="card profile-card">
+    <!-- Cover Image -->
+    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" class="card-img-top cover-img" alt="Cover Image">
+    
+    <!-- Profile Section -->
+    <div class="card-body text-center position-relative px-4">
+      <img src="./images/profile.png" class="avatar rounded-circle mb-2" alt="Profile Image">
+      <h5 class="card-title mb-1">Endang Sudrajat <i class="fas fa-check-circle" style="color: var(--accent); font-size: 0.9rem;"></i></h5>
+      <p class="text-muted small mb-1">@endang.dev • Full-Stack Developer</p>
+      <span class="badge status-badge rounded-pill mb-3">
+        <i class="fas fa-circle me-1" style="font-size: 0.5rem; vertical-align: middle;"></i> Following
+      </span>
+      
+      <!-- Stats -->
+      <div class="row g-3 mb-3 px-2">
+        <div class="col-3">
+          <div class="stat-value">15.4K</div>
+          <div class="stat-label">Followers</div>
+        </div>
+        <div class="col-3">
+          <div class="stat-value">15</div>
+          <div class="stat-label">Following</div>
+        </div>
+        <div class="col-3">
+          <div class="stat-value">114</div>
+          <div class="stat-label">Posts</div>
+        </div>
+        <div class="col-3">
+          <div class="stat-value">$149</div>
+          <div class="stat-label">Hourly</div>
+        </div>
+      </div>
+      
+      <!-- About -->
+      <div class="text-start mb-3 px-1">
+        <h6 class="text-primary mb-2" style="font-size: 0.9rem;">About Me</h6>
+        <p class="card-text small" style="font-size: 0.82rem; line-height: 1.5;">
+          I am a full-stack developer with 5+ years of experience at top tech companies. 
+          Specializing in modern web technologies, I love creating efficient, scalable 
+          solutions and sharing knowledge through mentoring.
+        </p>
+      </div>
+      
+      <!-- Location -->
+      <div class="text-muted small mb-3 px-1" style="font-size: 0.8rem;">
+        <i class="fas fa-map-marker-alt me-1" style="color: var(--accent); font-size: 0.8rem;"></i> Indramayu, Indondesia
+      </div>
+      
+      <!-- Tabs -->
+      <ul class="nav custom-tabs justify-content-center" id="profileTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="experience-tab" data-bs-toggle="tab" data-bs-target="#experience" type="button" role="tab">
+            <i class="fas fa-briefcase me-1"></i>Experience
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab">
+            <i class="fas fa-code me-1"></i>Skills
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
+            <i class="fas fa-star me-1"></i>Reviews
+          </button>
+        </li>
+      </ul>
+      
+      <!-- Tab Content -->
+      <div class="tab-content-container">
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="experience" role="tabpanel">
+            <div class="section-title">
+              <i class="fas fa-briefcase"></i>Professional Experience
+            </div>
+            <div class="d-flex align-items-center experience-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="company-logo" alt="Google">
+              <div class="experience-text">Senior Developer at Google (2020–Present)</div>
+            </div>
+            <div class="d-flex align-items-center experience-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="company-logo" alt="Apple">
+              <div class="experience-text">Software Engineer at Apple (2018–2020)</div>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="skills" role="tabpanel">
+            <div class="section-title">
+              <i class="fas fa-code"></i>Technical Skills
+            </div>
+            <div class="skills-container">
+              <span class="skill-badge">JavaScript</span>
+              <span class="skill-badge">React</span>
+              <span class="skill-badge">Node.js</span>
+              <span class="skill-badge">TypeScript</span>
+              <span class="skill-badge">MongoDB</span>
+              <span class="skill-badge">Express</span>
+              <span class="skill-badge">AWS</span>
+              <span class="skill-badge">Docker</span>
+              <span class="skill-badge">GraphQL</span>
+              <span class="skill-badge">Python</span>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="reviews" role="tabpanel">
+            <div class="section-title">
+              <i class="fas fa-star"></i>Client Reviews
+            </div>
+            <div class="review-item">
+              <div class="d-flex">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="review-avatar" alt="Reviewer">
+                <div class="review-content">
+                  <div class="review-header">
+                    <div class="review-stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-date">2 days ago</div>
+                  </div>
+                  <p class="review-text">Endang is an exceptional mentor with deep technical knowledge and great teaching skills.</p>
+                </div>
+              </div>
+            </div>
+            <div class="review-item">
+              <div class="d-flex">
+                <img src="https://randomuser.me/api/portraits/men/22.jpg" class="review-avatar" alt="Reviewer">
+                <div class="review-content">
+                  <div class="review-header">
+                    <div class="review-stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="review-date">1 week ago</div>
+                  </div>
+                  <p class="review-text">Great at explaining complex concepts in simple terms. Very patient and knowledgeable.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Book Button -->
+      <button class="btn btn-primary w-100">
+        Book Mentoring Session <i class="fas fa-arrow-right ms-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
